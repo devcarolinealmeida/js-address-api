@@ -1,18 +1,18 @@
 // async await
 
-async function searchAddress() {
+async function searchAddress(CAP) {
   try {
-    var searchCap = await fetch("https://viacep.com.br/ws/01001250/json/");
+    var searchCap = await fetch(`https://viacep.com.br/ws/${CAP}/json/`);
     var searchCapConverted = await searchCap.json();
     if (searchCapConverted.erro) {
         throw Error('Address not found')
     }
     console.log(searchCapConverted);
+    return searchCapConverted;
   } catch (erro) {
     console.log(erro);
   }
 }
-searchAddress();
 
 
 

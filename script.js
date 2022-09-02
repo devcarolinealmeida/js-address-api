@@ -14,6 +14,9 @@ async function searchAddress(CAP) {
   }
 }
 
+var cap = document.getElementById('cep')
+cap.addEventListener("focusout", () => searchAddress(cap.value))
+
 
 
 //-------------------------------------------------

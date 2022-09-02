@@ -1,31 +1,34 @@
 // async await
 
 async function searchAddress(CAP) {
-  try {
-    var searchCap = await fetch(`https://viacep.com.br/ws/${CAP}/json/`);
-    var searchCapConverted = await searchCap.json();
-    if (searchCapConverted.erro) {
-        throw Error('Address not found')
-    }
-    var district = document.getElementById('bairro')
-    var city = document.getElementById('cidade');
-    var address = document.getElementById('endereco');
-    var state = document.getElementById('estado')
-    
-    district.value = searchCapConverted.bairro;
-    city.value = searchCapConverted.localidade;
-    address.value = searchCapConverted.logradouro;
-    state.value = searchCapConverted.uf
+    var errorMessage = document.getElementById('erro');
+    errorMessage.innerHTML = ''
+    try {
+        var searchCap = await fetch(`https://viacep.com.br/ws/${CAP}/json/`);
+        var searchCapConverted = await searchCap.json();
+        if (searchCapConverted.erro) {
+            throw Error('Address not found')
+        }
+        var district = document.getElementById('bairro')
+        var city = document.getElementById('cidade');
+        var address = document.getElementById('endereco');
+        var state = document.getElementById('estado')
+        
+        district.value = searchCapConverted.bairro;
+        city.value = searchCapConverted.localidade;
+        address.value = searchCapConverted.logradouro;
+        state.value = searchCapConverted.uf
 
-    console.log(searchCapConverted);
-    return searchCapConverted;
-  } catch (erro) {
-    console.log(erro);
-  }
+        console.log(searchCapConverted);
+        return searchCapConverted;
+    } catch (erro) {
+        errorMessage.innerHTML = '<p>Address not found</p>'
+        console.log(erro);
+    }
 }
 
 var cap = document.getElementById('cep')
-cap.addEventListener("focusout", () => searchAddress(cap.value))
+cap.addEventListener('focusout', () => searchAddress(cap.value))
 
 
 

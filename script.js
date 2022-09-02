@@ -7,6 +7,16 @@ async function searchAddress(CAP) {
     if (searchCapConverted.erro) {
         throw Error('Address not found')
     }
+    var district = document.getElementById('bairro')
+    var city = document.getElementById('cidade');
+    var address = document.getElementById('endereco');
+    var state = document.getElementById('estado')
+    
+    district.value = searchCapConverted.bairro;
+    city.value = searchCapConverted.localidade;
+    address.value = searchCapConverted.logradouro;
+    state.value = searchCapConverted.uf
+
     console.log(searchCapConverted);
     return searchCapConverted;
   } catch (erro) {
